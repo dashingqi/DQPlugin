@@ -1,20 +1,21 @@
-# DQPlugin
+package com.dashingqi.dqplugin
 
-## 插件化
-#### 加载插件中的类
-###### dex文件生成命令
-``` shell
-dx --dex --output=output.dex input.class
-```
-###### PathClassLoader
-- ClassLoader parent 是 BootClassLoader
-###### DexClassLoader
-- DexClassLoader parent 是 PathClassLoader
+import android.content.Context
+import dalvik.system.DexClassLoader
+import java.lang.Exception
 
-###### 宿主与插件进行合并---> DexElements
-- 需要手动给应用权限
-```kotlin
-fun loadClass(context: Context, pluginApk: String) {
+/**
+ * @author zhangqi61
+ * @since 2021/11/22
+ */
+object LoadClassUtil {
+
+    /**
+     * 加载class 将宿主的dexElements + 插件的dexElements 进行合并 --> 新的宿主DexElements
+     * @param context Context 上下文环境
+     * @param pluginApk String 存放插件APK路径
+     */
+    fun loadClass(context: Context, pluginApk: String) {
         context ?: return
         pluginApk ?: return
         try {
@@ -54,25 +55,11 @@ fun loadClass(context: Context, pluginApk: String) {
             System.arraycopy(hostDexElements, 0, newDexElementArray, 0, hostDexElements.size)
             System.arraycopy(pluginDexElements, 0, newDexElementArray, hostDexElements.size, hostDexElements.size)
 
-            // 赋值 （新的DexElements赋值给宿主原本的DexElements）
+            // 赋值
             dexElementsField.set(hostPathListInstance, newDexElementArray)
 
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
     }
-```
-- 合并插件后，可以直接去反射插件中的类
-```kotlin
-val loadPluginClass:Class<*>? = Class.forName("com.dashingqi.loadplugin.LoadPlugin")
-// 这个ClassLoader是PathClassLoader
-Log.d(TAG, "loadPlugin classLoader is ${loadPluginClass.classLoader}")
-```
-
-#### 加载插件中的四大组件
-###### MainActivity
-- MainActivity的ClassLoader是PathClassLoader
-###### Activity
-- Activity的ClassLoader的BootClassLoader
-
-#### 加载插件中的资源
+}

@@ -16,4 +16,9 @@ public class DQPlugin {
     public static void print() {
         Log.d(TAG, "print invoke");
     }
+
+    public void log() {
+        Log.d(TAG, "log invoke");
+    }
+
 }

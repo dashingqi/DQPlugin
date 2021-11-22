@@ -21,12 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Activity classloader is ${Activity::class.java.classLoader}")
 
-        DQPlugin.print()
-
         try {
             // 定义一个DexClassLoader
             val dexClassLoader = DexClassLoader(
-                "/sdcard/Dashingqi.dex",
+                "/sdcard/DQPlugin.dex",
                 this.cacheDir.absolutePath,
                 null, classLoader
             )
@@ -35,8 +33,19 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "DexClassLoader parent is $dexClassLoaderParent")
 
             val loadClass = dexClassLoader.loadClass("com.dashingqi.plugin.DQPlugin")
-            val printMethod = loadClass.getMethod("println")
-            printMethod.invoke(loadClass)
+            val printMethod = loadClass.getMethod("print")
+
+            val logMethod = loadClass.getMethod("log")
+            printMethod.invoke(null)
+            // 通过类对象获取到类的对象
+            val loadClassInstance = loadClass.newInstance()
+            logMethod.invoke(loadClassInstance)
+
+            val loadPluginClass = Class.forName("com.dashingqi.loadplugin.LoadPlugin")
+            Log.d(TAG, "loadPlugin classLoader is ${loadPluginClass.classLoader}")
+            val loadPluginInstance = loadPluginClass.newInstance()
+            val performClickMethod = loadPluginClass.getMethod("performClick")
+            performClickMethod.invoke(loadPluginInstance)
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
