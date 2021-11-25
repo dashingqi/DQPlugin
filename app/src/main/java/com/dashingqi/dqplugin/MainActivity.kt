@@ -1,10 +1,12 @@
 package com.dashingqi.dqplugin
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.widget.TextView
 import com.dashingqi.plugin.DQPlugin
 import dalvik.system.DexClassLoader
 
@@ -14,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d(TAG, "MainActivity classLoader is $classLoader")
+        findViewById<TextView>(R.id.tvJump).setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
 
         val parentClassLoader = classLoader.parent
 
