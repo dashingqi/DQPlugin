@@ -14,6 +14,9 @@ dx --dex --output=output.dex input.class
 ###### Android中ClassLoader的继承关系
 ![Android中ClassLoader的继承关系.png](https://upload-images.jianshu.io/upload_images/4997216-73200a368de4c32e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+###### Android-双亲委派机制
+![Android-双亲委派机制.png](https://upload-images.jianshu.io/upload_images/4997216-35304b95d80ad58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ###### 宿主与插件进行合并---> DexElements
 - 需要手动给应用权限
 ```kotlin
