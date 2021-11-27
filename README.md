@@ -11,6 +11,9 @@ dx --dex --output=output.dex input.class
 ###### DexClassLoader
 - DexClassLoader parent 是 PathClassLoader
 
+###### Android中ClassLoader的继承关系
+![Android中ClassLoader的继承关系.png](https://upload-images.jianshu.io/upload_images/4997216-73200a368de4c32e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ###### 宿主与插件进行合并---> DexElements
 - 需要手动给应用权限
 ```kotlin
