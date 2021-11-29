@@ -9,6 +9,9 @@ import android.util.Log
 class LoadPlugin {
 
     fun performClick() {
+        kotlin.runCatching {
+
+        }.getOrNull()
         Log.d(TAG, "performClick: ")
     }
 
