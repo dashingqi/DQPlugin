@@ -2,6 +2,7 @@ package com.dashingqi.dqplugin
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
         }
+
+        // 系统出厂时间
+        val time = Build.TIME
+        Log.d(TAG, "onCreate: time == $time")
 
         val parentClassLoader = classLoader.parent
 
